@@ -9,8 +9,10 @@ void readAndPrintFile(const char* filename) {
     char c;
     f=fopen("test.txt","rt");
 
-    while((c=fgetc(f))!=EOF){
-        printf("%c",c);
+    char buff[BUFSIZE];
+
+    while (fgets(buff, BUFSIZE, f) != NULL) {
+        printf("%s", buff);
     }
 
     fclose(f);
