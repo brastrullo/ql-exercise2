@@ -5,28 +5,15 @@
 #define BUFSIZE 256
 
 void readAndPrintFile(const char* filename) {
-    FILE* ptr = fopen(filename, "r");
+    FILE *f;
+    char c;
+    f=fopen("test.txt","rt");
 
-    // Check for invalid sequences in the filename
-    if (strstr(filename, "..") || strchr(filename, '/') || strchr(filename, '\\')) {
-        printf("Invalid filename.\n");
-        return;
+    while((c=fgetc(f))!=EOF){
+        printf("%c",c);
     }
 
-    // Check if file can be opened
-    if (ptr == NULL) {
-        printf("File cannot be opened.\n");
-        return;
-    }
-
-    char buff[BUFSIZE];
-
-    // Read and print file contents
-    while (fgets(buff, BUFSIZE, ptr) != NULL) {
-        printf("%s", buff);
-    }
-
-    fclose(ptr); // Close the file after reading
+    fclose(f);
 }
 
 int main(int argc, char** argv) {
