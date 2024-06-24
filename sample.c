@@ -7,7 +7,12 @@
 void readAndPrintFile(const char* filename) {
     FILE *f;
     char c;
-    f=fopen("test.txt","rt");
+    f=fopen("printContents.txt","r");
+
+    if (f == NULL) {
+        printf("File cannot be opened.\n");
+        return(-1);
+    }
 
     char buff[BUFSIZE];
 
