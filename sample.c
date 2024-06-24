@@ -4,29 +4,38 @@
 
 #define BUFSIZE 256
 
-int main(int argc, char** argv) {
-    char *fileName = argv[2];
-    // Check for invalid sequences in the user input
-    if (strstr(fileName , "..") || strchr(fileName , '/') || strchr(fileName , '\\')) {
+void readAndPrintFile(const char* filename) {
+    FILE* ptr = fopen(filename, "r");
+
+    // Check for invalid sequences in the filename
+    if (strstr(filename, "..") || strchr(filename, '/') || strchr(filename, '\\')) {
         printf("Invalid filename.\n");
-        return 1;
+        return;
     }
 
-    char fileBuffer[BUFSIZE];
-    snprintf(fileBuffer, sizeof(fileBuffer), "/home/user/files/%s", fileName);
-    // GOOD: We know that the filename is safe and stays within the public folder
-    FILE *file = fopen(fileBuffer, "wb+");
-  
-    if (file == NULL) {
+    // Check if file can be opened
+    if (ptr == NULL) {
         printf("File cannot be opened.\n");
-        return(-1);
+        return;
     }
 
     char buff[BUFSIZE];
 
-    while (fgets(buff, BUFSIZE, file) != NULL) {
+    // Read and print file contents
+    while (fgets(buff, BUFSIZE, ptr) != NULL) {
         printf("%s", buff);
     }
 
+    fclose(ptr); // Close the file after reading
+}
+
+int main(int argc, char** argv) {
+    if (argc != 2) {
+        printf("Usage: %s <filename>\n", argv[0]);
+        return 1;
+    }
+
+    readAndPrintFile(argv[1]);
+    
     return 0;
 }
