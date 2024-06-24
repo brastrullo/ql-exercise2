@@ -22,15 +22,6 @@ int read_file(const char *filename) {
 }
 
 int main(int argc, char *argv[]) {
-  if (argc != 2) {
-    printf("Usage: %s <filename>\n", argv[0]);
-    return -1;
-  }
-
-  if (read_file(argv[1]) == -1) {
-    printf("Failed to read file '%s'\n", argv[1]);
-    return -1;
-  }
-
+  read_file(argv[1]);
   return 0;
 }
